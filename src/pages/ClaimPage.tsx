@@ -5,12 +5,14 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { useGasStore } from '@/store/gasStore'
+import NetworkSelector, { Network, NETWORKS } from '@/components/NetworkSelector'
 import confetti from 'canvas-confetti'
 
 const ClaimPage = () => {
   const { isConnected, userAddress, userEnsName, addClaim } = useGasStore()
   const [claimStatus, setClaimStatus] = useState<'idle' | 'verifying' | 'claiming' | 'success' | 'error'>('idle')
   const [verificationStatus, setVerificationStatus] = useState<'pending' | 'verified' | 'failed'>('pending')
+  const [selectedNetwork, setSelectedNetwork] = useState<Network>(NETWORKS[0]) // Default to Ethereum
 
   const handleConnect = () => {
     // Simulate wallet connection
@@ -119,7 +121,17 @@ const ClaimPage = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Network Selection */}
+            <div className="lg:col-span-3">
+              <NetworkSelector
+                selectedNetwork={selectedNetwork}
+                onNetworkChange={setSelectedNetwork}
+                title="Claim Network"
+                description="Select the network where you want to claim sponsored gas fees"
+              />
+            </div>
+
             {/* User Info Card */}
             <Card className="card-ethereum">
               <CardHeader>

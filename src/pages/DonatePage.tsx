@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useGasStore } from '@/store/gasStore'
+import NetworkSelector, { Network, NETWORKS } from '@/components/NetworkSelector'
 import confetti from 'canvas-confetti'
 
 const DonatePage = () => {
@@ -16,6 +17,7 @@ const DonatePage = () => {
   const [donationType, setDonationType] = useState<'main' | 'subdomain'>('main')
   const [targetSubdomain, setTargetSubdomain] = useState('')
   const [donationStatus, setDonationStatus] = useState<'idle' | 'processing' | 'success'>('idle')
+  const [selectedNetwork, setSelectedNetwork] = useState<Network>(NETWORKS[0]) // Default to Ethereum
 
   const handleConnect = () => {
     useGasStore.getState().setConnected(true)
@@ -98,9 +100,19 @@ const DonatePage = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-4 gap-8">
+            {/* Network Selection */}
+            <div className="lg:col-span-4">
+              <NetworkSelector
+                selectedNetwork={selectedNetwork}
+                onNetworkChange={setSelectedNetwork}
+                title="Donation Network"
+                description="Select the network where you want to donate gas fees"
+              />
+            </div>
+
             {/* Donation Form */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-3 space-y-6">
               <Card className="card-ethereum">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
@@ -132,7 +144,7 @@ const DonatePage = () => {
                       </div>
                       <div>
                         <h3 className="text-xl font-semibold text-primary">Thank You!</h3>
-                        <p className="text-muted-foreground">Your donation of {donationAmount} ETH will help onboard new users</p>
+                        <p className="text-muted-foreground">Your donation of {donationAmount} {selectedNetwork.gasToken} will help onboard new users</p>
                       </div>
                       <Button
                         variant="outline"
@@ -146,7 +158,7 @@ const DonatePage = () => {
                     <div className="space-y-6">
                       <div className="space-y-4">
                         <div className="space-y-2">
-                          <Label htmlFor="amount">Donation Amount (ETH)</Label>
+                          <Label htmlFor="amount">Donation Amount ({selectedNetwork.gasToken})</Label>
                           <Input
                             id="amount"
                             type="number"
@@ -165,7 +177,7 @@ const DonatePage = () => {
                                 size="sm"
                                 onClick={() => setDonationAmount(amount)}
                               >
-                                {amount} ETH
+                                {amount} {selectedNetwork.gasToken}
                               </Button>
                             ))}
                           </div>
@@ -218,7 +230,11 @@ const DonatePage = () => {
                         <div className="bg-muted/50 rounded-lg p-4 space-y-2">
                           <div className="flex justify-between">
                             <span className="text-muted-foreground">Donation Amount:</span>
-                            <span className="font-semibold">{donationAmount} ETH</span>
+                            <span className="font-semibold">{donationAmount} {selectedNetwork.gasToken}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Network:</span>
+                            <span className="font-semibold">{selectedNetwork.name}</span>
                           </div>
                           <div className="flex justify-between">
                             <span className="text-muted-foreground">Users Supported:</span>
