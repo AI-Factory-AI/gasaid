@@ -15,9 +15,9 @@ const NotFound = () => {
           <div className="w-32 h-32 bg-gradient-hero rounded-full flex items-center justify-center mx-auto">
             <Search className="w-16 h-16 text-white" />
           </div>
-          <h1 className="text-6xl md:text-8xl font-display font-bold bg-gradient-hero bg-clip-text text-transparent">
-            404
-          </h1>
+                  <h1 className="text-6xl md:text-8xl font-display font-bold bg-gradient-primary bg-clip-text text-transparent">
+          404
+        </h1>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground">
             Page Not Found
           </h2>

@@ -60,9 +60,20 @@ const ClaimPage = () => {
     }, 2000)
   }
 
+  const formatTimeAgo = (timestamp: number) => {
+    const now = Date.now()
+    const diff = now - timestamp
+    const hours = Math.floor(diff / (1000 * 60 * 60))
+    const days = Math.floor(hours / 24)
+    
+    if (days > 0) return `${days}d ago`
+    if (hours > 0) return `${hours}h ago`
+    return 'Just now'
+  }
+
   if (!isConnected) {
     return (
-      <div className="min-h-screen pt-20 px-4">
+      <div className="min-h-screen pt-20 px-4 pb-20">
         <div className="max-w-2xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -70,7 +81,7 @@ const ClaimPage = () => {
             className="text-center space-y-8"
           >
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-hero bg-clip-text text-transparent">
+              <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-primary bg-clip-text text-transparent">
                 Claim Your Sponsored Gas
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -99,109 +110,107 @@ const ClaimPage = () => {
   }
 
   return (
-    <div className="min-h-screen pt-20 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen pt-20 px-4 pb-20">
+      <div className="max-w-7xl mx-auto px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="space-y-8"
         >
           {/* Header */}
-          <div className="text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-hero bg-clip-text text-transparent">
+          {/* <div className="text-center space-y-4">
+            <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-primary bg-clip-text text-transparent">
               Claim Your Gas
             </h1>
             <p className="text-xl text-muted-foreground">
               Get sponsored gas fees and your ENS subdomain
             </p>
-          </div>
+          </div> */}
 
-                     {/* Main Claim Card */}
-           <div className="bg-background border border-border/50 rounded-lg p-6 max-w-2xl mx-auto">
-           
-             <div className="space-y-6">
-               {/* Network Selection */}
-               <div className="space-y-3">
-                 <label className="text-sm font-medium text-muted-foreground">Selected Network</label>
-                 <div className="p-3 bg-muted rounded-lg flex items-center justify-between">
-                   <div className="flex items-center space-x-3">
-                     <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center text-white font-bold">
-                       🔷
-                     </div>
-                     <div>
-                       <p className="font-medium">{selectedNetwork.name}</p>
-                       <p className="text-xs text-muted-foreground">Chain ID: {selectedNetwork.chainId}</p>
-                     </div>
-                   </div>
-                   <Badge variant="secondary" className="bg-gradient-secondary text-white border-0">
-                     {selectedNetwork.gasToken}
-                   </Badge>
-                 </div>
-               </div>
-
-               {/* User Info */}
-               <div className="space-y-4">
-                 <div className="space-y-2">
-                   <label className="text-sm font-medium text-muted-foreground">Wallet Address</label>
-                   <div className="p-3 bg-muted rounded-lg font-mono text-sm">
-                     {userAddress || '0xNewUser1234567890abcdef1234567890abcdef12'}
-                   </div>
-                 </div>
-                 
-                 <div className="space-y-2">
-                   <label className="text-sm font-medium text-muted-foreground">ENS Subdomain</label>
-                   <div className="p-3 bg-muted rounded-lg font-mono text-sm flex items-center justify-between">
-                     <span>{userEnsName || 'alex.gasfund.eth'}</span>
-                     <Badge variant="secondary" className="bg-gradient-primary text-white border-0">
-                       Assigned
-                     </Badge>
-                   </div>
-                 </div>
-
-                 <div className="space-y-2">
-                   <label className="text-sm font-medium text-muted-foreground">Verification Status</label>
-                   <div className="flex items-center space-x-2">
-                     {verificationStatus === 'verified' ? (
-                       <>
-                         <CheckCircle className="w-5 h-5 text-success" />
-                         <span className="text-success font-medium">EFP Verified</span>
-                       </>
-                     ) : (
-                       <>
-                         <AlertCircle className="w-5 h-5 text-warning" />
-                         <span className="text-warning font-medium">Verification Required</span>
-                       </>
-                     )}
-                   </div>
-                 </div>
-               </div>
-
-              {/* Claim Status */}
-              {claimStatus === 'success' ? (
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  className="text-center space-y-4"
-                >
-                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto">
-                    <CheckCircle className="w-8 h-8 text-white" />
+          {/* Side-by-side Layout */}
+          <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto">
+            {/* Left Side - Main Claim Card */}
+            <div className="flex-1">
+              <div className="bg-background border border-border/50 rounded-lg p-6">
+                <div className="text-center mb-6">
+                  <h2 className="text-2xl font-semibold text-foreground">Claim Your Sponsored Gas</h2>
+                  <p className="text-muted-foreground">
+                    Get sponsored gas fees and your free ENS subdomain
+                  </p>
+                </div>
+                <div className="space-y-6">
+                  {/* Network Selection */}
+                  <div className="space-y-4 mb-4">
+                    <label className="text-sm font-medium text-muted-foreground">Select Network</label>
+                    <NetworkSelector
+                      selectedNetwork={selectedNetwork}
+                      onNetworkChange={setSelectedNetwork}
+                    />
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-success">Claim Successful!</h3>
-                    <p className="text-muted-foreground">0.05 ETH has been added to your wallet</p>
+
+                  {/* User Info */}
+                  <div className="space-y-3">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-muted-foreground">Wallet Address</label>
+                      <div className="p-3 bg-muted rounded-lg font-mono text-sm">
+                        {userAddress || '0xNewUser1234567890abcdef1234567890abcdef12'}
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-muted-foreground">ENS Subdomain</label>
+                      <div className="p-3 bg-muted rounded-lg font-mono text-sm flex items-center justify-between">
+                        <span>{userEnsName || 'alex.gasfund.eth'}</span>
+                        <Badge variant="secondary" className="bg-gradient-primary text-white border-0">
+                          Assigned
+                        </Badge>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-muted-foreground">Verification Status</label>
+                      <div className="flex items-center space-x-2">
+                        {verificationStatus === 'verified' ? (
+                          <>
+                            <CheckCircle className="w-5 h-5 text-success" />
+                            <span className="text-success font-medium">EFP Verified</span>
+                          </>
+                        ) : (
+                          <>
+                            <AlertCircle className="w-5 h-5 text-warning" />
+                            <span className="text-warning font-medium">Verification Required</span>
+                          </>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => window.open('https://etherscan.io', '_blank')}
-                  >
-                    View on Etherscan
-                  </Button>
-                </motion.div>
-              ) : (
-                <div className="space-y-4">
-                  {/* Gas Details */}
-                  <div className="bg-muted/50 rounded-lg p-4 space-y-2">
+
+                             {/* Claim Status */}
+               {claimStatus === 'success' ? (
+                 <motion.div
+                   initial={{ scale: 0.8, opacity: 0 }}
+                   animate={{ scale: 1, opacity: 1 }}
+                   className="text-center space-y-3"
+                 >
+                   <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mx-auto">
+                     <CheckCircle className="w-6 h-6 text-white" />
+                   </div>
+                   <div>
+                     <h3 className="text-lg font-semibold text-success">Claim Successful!</h3>
+                     <p className="text-muted-foreground">0.05 ETH has been added to your wallet</p>
+                   </div>
+                   <Button
+                     variant="outline"
+                     className="w-full"
+                     onClick={() => window.open('https://etherscan.io', '_blank')}
+                   >
+                     View on Etherscan
+                   </Button>
+                 </motion.div>
+               ) : (
+                 <div className="space-y-3">
+                   {/* Gas Details */}
+                   <div className="bg-muted/50 rounded-lg p-3 space-y-2">
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Gas Amount:</span>
                       <span className="font-semibold">0.05 ETH</span>
@@ -244,8 +253,79 @@ const ClaimPage = () => {
                   </Button>
                 </div>
               )}
+                </div>
+              </div>
+            </div>
+
+          {/* Right Side - Recent Claims */}
+          <div className="lg:w-80">
+            <div className="sticky top-24">
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold text-foreground">Recent Claims</h3>
+                <p className="text-xs text-muted-foreground">
+                  Live claim activity
+                </p>
+              </div>
+              
+              {/* Notification-style Claims List */}
+              <div className="h-96 overflow-hidden">
+                <div className="animate-scroll-up">
+                  {/* First set of claims */}
+                  {useGasStore.getState().recentClaimants.slice(0, 8).map((claimant, index) => (
+                    <div
+                      key={`first-${claimant.id}`}
+                      className="flex items-start space-x-3 p-3 bg-muted/10 rounded-lg hover:bg-muted/20 transition-colors mb-2"
+                    >
+                      <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-1">
+                          <p className="font-medium text-sm text-foreground truncate">
+                            {claimant.ensSubdomain || `${claimant.address.slice(0, 4)}...${claimant.address.slice(-4)}`}
+                          </p>
+                          <span className="text-xs text-muted-foreground">{formatTimeAgo(claimant.timestamp)}</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-primary font-medium">
+                            {claimant.amount} ETH
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            Claimed
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  
+                  {/* Duplicate set for seamless infinite scroll */}
+                  {useGasStore.getState().recentClaimants.slice(0, 8).map((claimant, index) => (
+                    <div
+                      key={`second-${claimant.id}`}
+                      className="flex items-start space-x-3 p-3 bg-muted/10 rounded-lg hover:bg-muted/20 transition-colors mb-2"
+                    >
+                      <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-1">
+                          <p className="font-medium text-sm text-foreground truncate">
+                            {claimant.ensSubdomain || `${claimant.address.slice(0, 4)}...${claimant.address.slice(-4)}`}
+                          </p>
+                          <span className="text-xs text-muted-foreground">{formatTimeAgo(claimant.timestamp)}</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-primary font-medium">
+                            {claimant.amount} ETH
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            Claimed
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
+        </div>
         </motion.div>
       </div>
     </div>

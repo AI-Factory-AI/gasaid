@@ -256,6 +256,10 @@ Based on ethereum.org's official design system
     animation: glow 2s ease-in-out infinite alternate;
   }
 
+  .animate-scroll-up {
+    animation: scrollUp 20s linear infinite;
+  }
+
   /* Ethereum.org specific design classes */
   .text-ethereum-primary {
     color: hsl(var(--primary));
@@ -334,5 +338,17 @@ Based on ethereum.org's official design system
   }
   to {
     box-shadow: var(--shadow-glow);
+  }
+}
+
+@keyframes scrollUp {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(-50%);
   }
 }

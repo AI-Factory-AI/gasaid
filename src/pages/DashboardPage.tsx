@@ -89,9 +89,9 @@ const DashboardPage = () => {
                    <div className="space-y-3">
                      <div className="flex items-center justify-between">
                        <h3 className="text-sm font-medium text-muted-foreground">{stat.title}</h3>
-                       <Badge variant="secondary" className="bg-primary text-primary-foreground border-0 text-xs">
+                       <span className="text-xs text-primary font-medium">
                          {stat.change}
-                       </Badge>
+                       </span>
                      </div>
                      <p className="text-3xl font-bold text-foreground">{stat.value}</p>
                      <p className="text-xs text-muted-foreground">{stat.description}</p>
@@ -125,11 +125,6 @@ const DashboardPage = () => {
                              <span className="font-medium text-sm">
                                {claimant.ensSubdomain || `${claimant.address.slice(0, 6)}...${claimant.address.slice(-4)}`}
                              </span>
-                             {claimant.verified && (
-                               <Badge variant="secondary" className="bg-success/20 text-success border-success/30 text-xs">
-                                 Verified
-                               </Badge>
-                             )}
                            </div>
                            <p className="text-xs text-muted-foreground">
                              Claimed {claimant.amount} ETH • {formatTimeAgo(claimant.timestamp)}
@@ -149,62 +144,7 @@ const DashboardPage = () => {
                  </div>
                </div>
 
-               {/* Impact Metrics */}
-               <div className="bg-background border border-border/50 rounded-lg p-6">
-                 <div className="mb-4">
-                   <h2 className="text-lg font-semibold text-foreground">Impact Metrics</h2>
-                   <p className="text-sm text-muted-foreground">
-                     Measuring our success in Web3 onboarding
-                   </p>
-                 </div>
-                 <div className="space-y-4">
-                   <div className="space-y-3">
-                     <div className="space-y-2">
-                       <div className="flex justify-between text-sm">
-                         <span>Gas Pool Utilization</span>
-                         <span className="font-medium">73%</span>
-                       </div>
-                       <Progress value={73} className="h-2" />
-                       <p className="text-xs text-muted-foreground">
-                         104.2 ETH used of 142.7 ETH donated
-                       </p>
-                     </div>
 
-                     <div className="space-y-2">
-                       <div className="flex justify-between text-sm">
-                         <span>User Retention Rate</span>
-                         <span className="font-medium">89%</span>
-                       </div>
-                       <Progress value={89} className="h-2" />
-                       <p className="text-xs text-muted-foreground">
-                         Users still active after 30 days
-                       </p>
-                     </div>
-
-                     <div className="space-y-2">
-                       <div className="flex justify-between text-sm">
-                         <span>Average Transactions per User</span>
-                         <span className="font-medium">12.4</span>
-                       </div>
-                       <Progress value={62} className="h-2" />
-                       <p className="text-xs text-muted-foreground">
-                         Post-onboarding transaction activity
-                       </p>
-                     </div>
-                   </div>
-
-                   <div className="grid grid-cols-2 gap-4 pt-3 border-t border-border/30">
-                     <div className="text-center">
-                       <p className="text-xl font-bold text-foreground">$2.1M</p>
-                       <p className="text-xs text-muted-foreground">Value transacted</p>
-                     </div>
-                     <div className="text-center">
-                       <p className="text-xl font-bold text-foreground">94%</p>
-                       <p className="text-xs text-muted-foreground">Success rate</p>
-                     </div>
-                   </div>
-                 </div>
-               </div>
              </div>
 
              {/* Sidebar */}
@@ -213,7 +153,7 @@ const DashboardPage = () => {
                <div className="bg-background border border-border/50 rounded-lg p-6">
                  <div className="mb-4">
                    <h2 className="text-lg font-semibold text-foreground">Top Sponsors</h2>
-                   <p className="text-sm text-muted-foreground">
+                   <p className="text-xs text-muted-foreground">
                      Our generous supporters
                    </p>
                  </div>
@@ -221,26 +161,22 @@ const DashboardPage = () => {
                    {donors.slice(0, 5).map((donor, index) => {
                      const badgeInfo = getBadgeInfo(donor.badge)
                      return (
-                       <div key={donor.id} className="flex items-center space-x-3 p-3 bg-muted/20 rounded-lg border border-border/30">
-                         <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                           index === 0 ? 'bg-gradient-to-r from-yellow-400 to-yellow-600' :
-                           index === 1 ? 'bg-gradient-to-r from-gray-300 to-gray-500' :
-                           index === 2 ? 'bg-gradient-to-r from-amber-600 to-amber-800' :
-                           'bg-primary'
-                         } text-white`}>
-                           {index + 1}
-                         </div>
+                       <div key={donor.id} className="flex items-start space-x-3 p-3 bg-muted/10 rounded-lg hover:bg-muted/20 transition-colors">
+                         <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                          <div className="flex-1 min-w-0">
-                           <div className="flex items-center space-x-2">
-                             <span className="font-medium text-sm truncate">
-                               {donor.ensName || `${donor.address.slice(0, 6)}...${donor.address.slice(-4)}`}
-                             </span>
+                           <div className="flex items-center justify-between mb-1">
+                             <p className="font-medium text-sm text-foreground truncate">
+                               {donor.ensName || `${donor.address.slice(0, 4)}...${donor.address.slice(-4)}`}
+                             </p>
+                             <span className="text-xs text-muted-foreground">{formatTimeAgo(donor.timestamp)}</span>
                            </div>
-                           <div className="flex items-center justify-between text-xs">
-                             <Badge className={`${badgeInfo.color} text-xs`}>
-                               {badgeInfo.label}
-                             </Badge>
-                             <span className="text-muted-foreground">{donor.amount} ETH</span>
+                           <div className="flex items-center justify-between">
+                             <span className="text-xs text-primary font-medium">
+                               {donor.amount} ETH
+                             </span>
+                             <span className="text-xs text-muted-foreground capitalize">
+                               {badgeInfo.label} sponsor
+                             </span>
                            </div>
                          </div>
                        </div>
@@ -249,44 +185,7 @@ const DashboardPage = () => {
                  </div>
                </div>
 
-               {/* Live Stats */}
-               <div className="bg-background border border-border/50 rounded-lg p-6">
-                 <div className="mb-4">
-                   <h2 className="text-lg font-semibold text-foreground">Live Stats</h2>
-                 </div>
-                 <div className="space-y-3">
-                   <div className="space-y-2">
-                     <div className="flex justify-between">
-                       <span className="text-sm text-muted-foreground">Gas Price</span>
-                       <span className="font-medium text-sm">25 gwei</span>
-                     </div>
-                     <div className="flex justify-between">
-                       <span className="text-sm text-muted-foreground">Network</span>
-                       <Badge variant="secondary" className="bg-success/20 text-success text-xs">
-                         Ethereum
-                       </Badge>
-                     </div>
-                     <div className="flex justify-between">
-                       <span className="text-sm text-muted-foreground">Block Height</span>
-                       <span className="font-medium text-sm">18,523,847</span>
-                     </div>
-                     <div className="flex justify-between">
-                       <span className="text-sm text-muted-foreground">Pool Balance</span>
-                       <span className="font-medium text-sm">38.5 ETH</span>
-                     </div>
-                   </div>
 
-                   <div className="pt-3 border-t border-border/30">
-                     <div className="flex items-center space-x-2 text-sm">
-                       <div className="w-2 h-2 bg-success rounded-full"></div>
-                       <span className="text-success">System Operational</span>
-                     </div>
-                     <p className="text-xs text-muted-foreground mt-1">
-                       Last claim: 2 minutes ago
-                     </p>
-                   </div>
-                 </div>
-               </div>
              </div>
            </div>
         </motion.div>

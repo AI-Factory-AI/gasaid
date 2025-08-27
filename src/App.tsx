@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navigation from "@/components/Layout/Navigation";
+import Footer from "@/components/Layout/Footer";
 import Index from "./pages/Index";
 import ClaimPage from "./pages/ClaimPage";
 import DonatePage from "./pages/DonatePage";
@@ -32,6 +33,7 @@ const App = () => (
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
+            <Footer />
           </div>
         </BrowserRouter>
       </TooltipProvider>

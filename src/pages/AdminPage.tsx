@@ -88,7 +88,7 @@ const AdminPage = () => {
               <div className="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto text-white text-4xl font-bold">
                 A
               </div>
-              <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-hero bg-clip-text text-transparent">
+              <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-primary bg-clip-text text-transparent">
                 Admin Access Required
               </h1>
               <p className="text-xl text-muted-foreground">
@@ -127,7 +127,7 @@ const AdminPage = () => {
         >
           {/* Header */}
           <div className="text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-hero bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-primary bg-clip-text text-transparent">
               Admin Panel
             </h1>
             <p className="text-xl text-muted-foreground">

@@ -27,35 +27,39 @@ const Navigation = () => {
     <>
       {/* Desktop Navigation */}
       <nav className="hidden lg:flex items-center justify-between w-full px-8 py-6 bg-background/80 backdrop-blur-lg border-b border-border/50 sticky top-0 z-50">
-        <Link to="/" className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-            <Zap className="w-5 h-5 text-white" />
-          </div>
-          <span className="text-xl font-display font-bold bg-gradient-hero bg-clip-text text-transparent">
+        <div className="flex items-center space-x-8">
+          <Link to="/" className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+              <Zap className="w-5 h-5 text-white" />
+            </div>
+                      <span className="text-xl font-display font-bold bg-gradient-primary bg-clip-text text-transparent">
             Gas4All
           </span>
-        </Link>
+          </Link>
 
-        <div className="flex items-center space-x-8">
-          {navItems.map((item) => {
-            const isActive = location.pathname === item.path
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`px-4 py-2 rounded-lg transition-all duration-300 hover:bg-muted/50 ${
-                  isActive ? 'bg-primary/10 text-primary font-medium' : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <span>{item.label}</span>
-              </Link>
-            )
-          })}
+          <div className="flex items-center space-x-4">
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.path
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`px-4 py-2 rounded-lg transition-all duration-300 font-medium ${
+                    isActive 
+                      ? 'text-primary font-semibold' 
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  <span>{item.label}</span>
+                </Link>
+              )
+            })}
+          </div>
         </div>
 
         <div className="flex items-center space-x-4">
           <ThemeToggle />
-          {isConnected ? (
+          {isConnected && (
             <div className="flex items-center space-x-3">
               <div className="px-3 py-2 bg-muted rounded-lg">
                 <span className="text-sm font-medium">
@@ -66,10 +70,6 @@ const Navigation = () => {
                 Disconnect
               </Button>
             </div>
-          ) : (
-            <Button className="btn-ethereum">
-              Connect Wallet
-            </Button>
           )}
         </div>
       </nav>
@@ -81,7 +81,7 @@ const Navigation = () => {
             <div className="w-7 h-7 bg-gradient-primary rounded-lg flex items-center justify-center">
               <Zap className="w-4 h-4 text-white" />
             </div>
-            <span className="text-lg font-display font-bold bg-gradient-hero bg-clip-text text-transparent">
+            <span className="text-lg font-display font-bold bg-gradient-primary bg-clip-text text-transparent">
               Gas4All
             </span>
           </Link>
@@ -124,8 +124,8 @@ const Navigation = () => {
               )
             })}
             
-            <div className="pt-4 border-t border-border/50">
-              {isConnected ? (
+            {isConnected && (
+              <div className="pt-4 border-t border-border/50">
                 <div className="space-y-2">
                   <div className="px-4 py-2 bg-muted rounded-lg">
                     <span className="text-sm font-medium">
@@ -136,12 +136,8 @@ const Navigation = () => {
                     Disconnect
                   </Button>
                 </div>
-              ) : (
-                <Button className="btn-ethereum w-full">
-                  Connect Wallet
-                </Button>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </motion.div>
       </nav>
