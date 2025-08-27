@@ -6,9 +6,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { useGasStore } from '@/store/gasStore'
 import heroImage from '@/assets/hero-bg.jpg'
+import { useEffect, useRef, useState } from 'react'
 
 const Index = () => {
   const { stats, donors } = useGasStore()
+  const [position, setPosition] = useState(0)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const speed = 0.5 // Pixels per frame - slower for better visibility
 
   const features = [
     {
@@ -43,8 +47,43 @@ const Index = () => {
     { name: 'Uniswap Labs', logo: '🦄' },
     { name: 'Polygon', logo: '🔶' },
     { name: 'Gitcoin', logo: '💚' },
-    { name: 'MetaMask', logo: '🦊' }
+    { name: 'MetaMask', logo: '🦊' },
+    { name: 'Arbitrum', logo: '🔵' },
+    { name: 'Optimism', logo: '🔴' },
+    { name: 'Base', logo: '🔷' },
+    { name: 'Chainlink', logo: '🔗' }
   ]
+
+  // Animation effect for scrolling logos
+  useEffect(() => {
+    let animationId: number
+    let lastTime = 0
+    
+    const animate = (currentTime: number) => {
+      if (lastTime === 0) lastTime = currentTime
+      const deltaTime = currentTime - lastTime
+      
+      setPosition(prev => {
+        const newPosition = prev - speed * (deltaTime / 16)
+        // Reset when first set is completely out of view
+        if (Math.abs(newPosition) >= sponsors.length * 200) {
+          return 0
+        }
+        return newPosition
+      })
+      
+      lastTime = currentTime
+      animationId = requestAnimationFrame(animate)
+    }
+    
+    animationId = requestAnimationFrame(animate)
+    
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId)
+      }
+    }
+  }, [sponsors.length, speed])
 
   return (
     <div className="min-h-screen">
@@ -61,105 +100,170 @@ const Index = () => {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 max-w-6xl mx-auto px-4 text-center text-white">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8"
-          >
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              <Badge className="bg-white/20 text-white border-white/30 text-lg px-6 py-2">
-                🏆 Hackathon Winner
-              </Badge>
-            </motion.div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 text-white">
+                     <motion.div
+             initial={{ opacity: 0, y: 30 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ duration: 0.8 }}
+             className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center min-h-screen py-20"
+           >
+                         {/* Left Side - Main Content */}
+             <div className="space-y-4 ml-4">
+               {/* Badge */}
+               <motion.div
+                 initial={{ opacity: 0, y: 20 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 transition={{ delay: 0.2 }}
+               >
+                 <Badge className="bg-gradient-secondary text-white border-0 px-3 py-1.5 text-xs font-medium">
+                   #No.1 Gas Sponsorship Platform
+                 </Badge>
+               </motion.div>
 
-            {/* Main Heading */}
-            <div className="space-y-6">
-              <h1 className="text-5xl md:text-7xl font-display font-bold leading-tight">
-                Sponsoring Gas,
-                <br />
-                <span className="text-secondary-glow">Empowering Adoption</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-                The revolutionary Ethereum dApp where organizations sponsor gas fees for new users, 
-                complete with free ENS subdomains and seamless onboarding.
-              </p>
+               {/* Main Heading */}
+               <motion.div
+                 initial={{ opacity: 0, y: 20 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 transition={{ delay: 0.4 }}
+                 className="space-y-3"
+               >
+                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight">
+                   Sponsoring Gas,
+                   <br />
+                   <span className="text-secondary-glow">Empowering Adoption</span>
+                 </h1>
+                 <p className="text-lg md:text-xl text-white/90 max-w-xl leading-relaxed">
+                   The revolutionary Ethereum dApp where organizations sponsor gas fees for new users, 
+                   complete with free ENS subdomains and seamless onboarding.
+                 </p>
+               </motion.div>
+
+               {/* CTA Buttons */}
+               <motion.div
+                 initial={{ opacity: 0, y: 20 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 transition={{ delay: 0.6 }}
+                 className="flex flex-col sm:flex-row gap-3"
+               >
+                 <Link to="/claim">
+                   <Button size="lg" className="btn-warm text-base px-6 py-4 group">
+                     Claim Free Gas
+                     <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                   </Button>
+                 </Link>
+                 <Link to="/donate">
+                   <Button size="lg" variant="outline" className="text-base px-6 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20 group">
+                     Sponsor Users
+                     <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                   </Button>
+                 </Link>
+               </motion.div>
+
+                               {/* Stats Grid */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                  className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-3"
+                >
+               <div className="text-center">
+                   <p className="text-lg md:text-xl font-bold text-white">{stats.totalDonated.toFixed(1)} ETH</p>
+                   <p className="text-white/80 text-xs">Total Donated</p>
+               </div>
+               <div className="text-center">
+                   <p className="text-lg md:text-xl font-bold text-white">{stats.totalUsers.toLocaleString()}</p>
+                   <p className="text-white/80 text-xs">Users Onboarded</p>
+               </div>
+               <div className="text-center">
+                   <p className="text-lg md:text-xl font-bold text-white">{stats.totalClaims}</p>
+                   <p className="text-white/80 text-xs">Gas Claims</p>
+               </div>
+               <div className="text-center">
+                   <p className="text-lg md:text-xl font-bold text-white">{stats.totalSubdomains}</p>
+                   <p className="text-white/80 text-xs">ENS Subdomains</p>
+                 </div>
+               </motion.div>
             </div>
 
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-            >
-              <Link to="/claim">
-                <Button size="lg" className="btn-warm text-lg px-8 py-6 group">
-                  <Zap className="w-5 h-5 mr-2" />
-                  Claim Free Gas
-                  <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link to="/donate">
-                <Button size="lg" variant="outline" className="text-lg px-8 py-6 bg-white/10 border-white/30 text-white hover:bg-white/20 group">
-                  <Heart className="w-5 h-5 mr-2" />
-                  Sponsor Users
-                  <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-            </motion.div>
-
-            {/* Stats Preview */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12"
-            >
-              <div className="text-center">
-                <p className="text-3xl md:text-4xl font-bold">{stats.totalDonated.toFixed(1)}ETH</p>
-                <p className="text-white/80">Total Donated</p>
-              </div>
-              <div className="text-center">
-                <p className="text-3xl md:text-4xl font-bold">{stats.totalUsers.toLocaleString()}</p>
-                <p className="text-white/80">Users Onboarded</p>
-              </div>
-              <div className="text-center">
-                <p className="text-3xl md:text-4xl font-bold">{stats.totalClaims}</p>
-                <p className="text-white/80">Gas Claims</p>
-              </div>
-              <div className="text-center">
-                <p className="text-3xl md:text-4xl font-bold">{stats.totalSubdomains}</p>
-                <p className="text-white/80">ENS Subdomains</p>
+                         {/* Right Side - Quick Claim Card */}
+             <motion.div
+               initial={{ opacity: 0, x: 30 }}
+               animate={{ opacity: 1, x: 0 }}
+               transition={{ delay: 0.8 }}
+               className="flex justify-center lg:justify-end mr-4"
+             >
+              <div className="bg-background/20 backdrop-blur-sm border border-white/20 rounded-2xl p-8 max-w-md w-full">
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-semibold text-white mb-2">Claim Free Gas</h3>
+                  <p className="text-white/70 text-sm">
+                    Get started with Web3 in seconds
+                  </p>
+                </div>
+                
+                <div className="space-y-6">
+                  {/* Input Fields */}
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label className="text-white/70 text-sm font-medium">You pay</label>
+                      <div className="flex items-center bg-muted/30 rounded-lg p-3">
+                        <input 
+                          type="text" 
+                          value="0.05" 
+                          readOnly
+                          className="bg-transparent text-white text-lg font-semibold flex-1 outline-none"
+                        />
+                        <div className="text-white/70 text-sm ml-2">ETH</div>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label className="text-white/70 text-sm font-medium">You get</label>
+                      <div className="flex items-center bg-muted/30 rounded-lg p-3">
+                        <input 
+                          type="text" 
+                          value="0.05" 
+                          readOnly
+                          className="bg-transparent text-white text-lg font-semibold flex-1 outline-none"
+                        />
+                        <div className="text-white/70 text-sm ml-2">Gas Fee</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Timer */}
+                  <div className="text-center">
+                    <p className="text-white/50 text-xs">
+                      Gas fee will be recalculated in <span className="text-white font-medium">24:32</span>
+                    </p>
+                  </div>
+                  
+                  {/* Terms */}
+                  <div className="text-center">
+                    <a href="#" className="text-white/60 text-xs hover:text-white transition-colors">
+                      Terms and Conditions
+                    </a>
+                  </div>
+                  
+                  {/* Claim Button */}
+                  <div className="text-center">
+                    <Link to="/claim">
+                      <Button className="bg-white text-black hover:bg-white/90 w-full py-4 text-lg font-semibold rounded-xl">
+                        Claim Gas Instantly
+                      </Button>
+                    </Link>
+                  </div>
+                  
+                  {/* Trust Indicators */}
+                  <div className="text-center">
+                    <p className="text-white/50 text-xs">
+                      No wallet required • Instant approval • Free forever
+                    </p>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </motion.div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60"
-        >
-          <div className="flex flex-col items-center space-y-2">
-            <span className="text-sm">Scroll to explore</span>
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-              className="w-6 h-10 border border-white/30 rounded-full flex justify-center"
-            >
-              <div className="w-1 h-3 bg-white/60 rounded-full mt-2"></div>
-            </motion.div>
-          </div>
-        </motion.div>
       </section>
 
       {/* Features Section */}
@@ -224,22 +328,51 @@ const Index = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-            {sponsors.map((sponsor, index) => (
-              <motion.div
-                key={sponsor.name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="card-ethereum p-6 text-center group hover:shadow-ethereum transition-all duration-300"
-              >
-                <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                  {sponsor.logo}
+          <div className="relative overflow-hidden" ref={containerRef}>
+            <div 
+              className="flex items-center gap-8 lg:gap-12 opacity-70"
+              style={{
+                transform: `translateX(${position}px)`,
+                width: 'max-content'
+              }}
+            >
+              {/* First set of logos */}
+              {sponsors.map((sponsor, index) => (
+                <div key={`first-${index}`} className="hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                  <div className="w-36 h-20 flex items-center justify-center bg-transparent border border-border/50 rounded-full p-4 flex-shrink-0">
+                    <div className="relative w-full h-full flex items-center justify-center">
+                      <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
+                        {sponsor.logo}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <p className="font-medium text-sm">{sponsor.name}</p>
-              </motion.div>
-            ))}
+              ))}
+              {/* Duplicate set for seamless loop */}
+              {sponsors.map((sponsor, index) => (
+                <div key={`second-${index}`} className="hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                  <div className="w-36 h-20 flex items-center justify-center bg-transparent border border-border/50 rounded-full p-4 flex-shrink-0">
+                    <div className="relative w-full h-full flex items-center justify-center">
+                      <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
+                        {sponsor.logo}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {/* Third set for extra smoothness */}
+              {sponsors.map((sponsor, index) => (
+                <div key={`third-${index}`} className="hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                  <div className="w-36 h-20 flex items-center justify-center bg-transparent border border-border/50 rounded-full p-4 flex-shrink-0">
+                    <div className="relative w-full h-full flex items-center justify-center">
+                      <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
+                        {sponsor.name}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -339,18 +472,16 @@ const Index = () => {
               Gas4All makes Web3 accessible to everyone.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/claim">
-                <Button size="lg" className="btn-warm text-lg px-8 py-6">
-                  <Zap className="w-5 h-5 mr-2" />
-                  Start Your Web3 Journey
-                </Button>
-              </Link>
-              <Link to="/donate">
-                <Button size="lg" variant="outline" className="text-lg px-8 py-6 bg-white/10 border-white/30 text-white hover:bg-white/20">
-                  <Heart className="w-5 h-5 mr-2" />
-                  Become a Sponsor
-                </Button>
-              </Link>
+                             <Link to="/claim">
+                 <Button size="lg" className="btn-warm text-lg px-8 py-6">
+                   Start Your Web3 Journey
+                 </Button>
+               </Link>
+               <Link to="/donate">
+                 <Button size="lg" variant="outline" className="text-lg px-8 py-6 bg-white/10 border-white/30 text-white hover:bg-white/20">
+                   Become a Sponsor
+                 </Button>
+               </Link>
             </div>
           </motion.div>
         </div>

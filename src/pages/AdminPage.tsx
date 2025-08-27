@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Settings, Users, Plus, Shield, CheckCircle, Clock, AlertTriangle } from 'lucide-react'
+import { AlertTriangle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -85,8 +85,8 @@ const AdminPage = () => {
             className="text-center space-y-8"
           >
             <div className="space-y-4">
-              <div className="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto">
-                <Shield className="w-10 h-10 text-white" />
+              <div className="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto text-white text-4xl font-bold">
+                A
               </div>
               <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-hero bg-clip-text text-transparent">
                 Admin Access Required
@@ -126,77 +126,44 @@ const AdminPage = () => {
           className="space-y-8"
         >
           {/* Header */}
-          <div className="flex items-center justify-between">
-            <div className="space-y-2">
-              <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-hero bg-clip-text text-transparent">
-                Admin Panel
-              </h1>
-              <p className="text-xl text-muted-foreground">
-                Manage Gas4All operations and user onboarding
-              </p>
-            </div>
-            <Badge className="bg-gradient-primary text-white border-0 text-lg px-4 py-2">
-              Administrator
-            </Badge>
+          <div className="text-center space-y-4">
+            <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-hero bg-clip-text text-transparent">
+              Admin Panel
+            </h1>
+            <p className="text-xl text-muted-foreground">
+              Manage Gas4All operations and user onboarding
+            </p>
           </div>
 
           {/* Quick Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <Card className="card-ethereum">
-              <CardContent className="pt-6">
-                <div className="flex items-center space-x-2">
-                  <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold">{pendingClaims.length}</p>
-                    <p className="text-sm text-muted-foreground">Pending Claims</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="bg-background border border-border/50 rounded-lg p-6">
+              <div className="text-center">
+                <p className="text-3xl font-bold text-foreground">{pendingClaims.length}</p>
+                <p className="text-sm text-muted-foreground">Pending Claims</p>
+              </div>
+            </div>
 
-            <Card className="card-ethereum">
-              <CardContent className="pt-6">
-                <div className="flex items-center space-x-2">
-                  <div className="w-10 h-10 bg-gradient-secondary rounded-full flex items-center justify-center">
-                    <Users className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold">{stats.totalSubdomains}</p>
-                    <p className="text-sm text-muted-foreground">ENS Subdomains</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="bg-background border border-border/50 rounded-lg p-6">
+              <div className="text-center">
+                <p className="text-3xl font-bold text-foreground">{stats.totalSubdomains}</p>
+                <p className="text-sm text-muted-foreground">ENS Subdomains</p>
+              </div>
+            </div>
 
-            <Card className="card-ethereum">
-              <CardContent className="pt-6">
-                <div className="flex items-center space-x-2">
-                  <div className="w-10 h-10 bg-gradient-warm rounded-full flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold">38.5</p>
-                    <p className="text-sm text-muted-foreground">ETH Available</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="bg-background border border-border/50 rounded-lg p-6">
+              <div className="text-center">
+                <p className="text-3xl font-bold text-foreground">38.5</p>
+                <p className="text-sm text-muted-foreground">ETH Available</p>
+              </div>
+            </div>
 
-            <Card className="card-ethereum">
-              <CardContent className="pt-6">
-                <div className="flex items-center space-x-2">
-                  <div className="w-10 h-10 bg-gradient-hero rounded-full flex items-center justify-center">
-                    <Shield className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold">99.2%</p>
-                    <p className="text-sm text-muted-foreground">Uptime</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="bg-background border border-border/50 rounded-lg p-6">
+              <div className="text-center">
+                <p className="text-3xl font-bold text-foreground">99.2%</p>
+                <p className="text-sm text-muted-foreground">Uptime</p>
+              </div>
+            </div>
           </div>
 
           {/* Admin Tabs */}
@@ -209,19 +176,14 @@ const AdminPage = () => {
 
             {/* Pending Claims */}
             <TabsContent value="claims" className="space-y-6">
-              <Card className="card-ethereum">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center">
-                      <Clock className="w-5 h-5 text-white" />
-                    </div>
-                    <span>Pending Gas Claims</span>
-                  </CardTitle>
-                  <CardDescription>
+              <div className="bg-background border border-border/50 rounded-lg p-6">
+                <div className="mb-4">
+                  <h2 className="text-lg font-semibold text-foreground">Pending Gas Claims</h2>
+                  <p className="text-sm text-muted-foreground">
                     Review and approve gas fee claims from new users
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
+                  </p>
+                </div>
+                <div>
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -291,20 +253,15 @@ const AdminPage = () => {
                       ))}
                     </TableBody>
                   </Table>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </TabsContent>
 
             {/* ENS Management */}
             <TabsContent value="subdomains" className="space-y-6">
               <Card className="card-ethereum">
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <div className="w-10 h-10 bg-gradient-secondary rounded-full flex items-center justify-center">
-                      <Plus className="w-5 h-5 text-white" />
-                    </div>
-                    <span>Create ENS Subdomain</span>
-                  </CardTitle>
+                  <CardTitle>Create ENS Subdomain</CardTitle>
                   <CardDescription>
                     Issue new ENS subdomains for verified users
                   </CardDescription>
@@ -351,8 +308,8 @@ const AdminPage = () => {
                     {recentClaimants.map((claimant) => (
                       <div key={claimant.id} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
                         <div className="flex items-center space-x-3">
-                          <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center">
-                            <Users className="w-4 h-4 text-white" />
+                          <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold">
+                            {claimant.ensSubdomain ? claimant.ensSubdomain.charAt(0).toUpperCase() : 'U'}
                           </div>
                           <div>
                             <p className="font-medium">{claimant.ensSubdomain}</p>
@@ -380,12 +337,7 @@ const AdminPage = () => {
             <TabsContent value="allocation" className="space-y-6">
               <Card className="card-ethereum">
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <div className="w-10 h-10 bg-gradient-warm rounded-full flex items-center justify-center">
-                      <Settings className="w-5 h-5 text-white" />
-                    </div>
-                    <span>Manual Gas Allocation</span>
-                  </CardTitle>
+                  <CardTitle>Manual Gas Allocation</CardTitle>
                   <CardDescription>
                     Manually allocate gas fees to specific users or addresses
                   </CardDescription>

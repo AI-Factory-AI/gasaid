@@ -48,6 +48,13 @@ export default {
 				},
 				success: 'hsl(var(--success))',
 				warning: 'hsl(var(--warning))',
+				ethereum: {
+					blue: 'hsl(var(--ethereum-blue))',
+					green: 'hsl(var(--ethereum-green))',
+					orange: 'hsl(var(--ethereum-orange))',
+					red: 'hsl(var(--ethereum-red))',
+					yellow: 'hsl(var(--ethereum-yellow))'
+				},
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',
 					foreground: 'hsl(var(--popover-foreground))'

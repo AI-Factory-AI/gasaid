@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Menu, X, Zap, Heart, BarChart3, Settings, Home } from 'lucide-react'
+import { Menu, X, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useGasStore } from '@/store/gasStore'
+import { ThemeToggle } from '@/components/ThemeToggle'
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -11,11 +12,11 @@ const Navigation = () => {
   const { isConnected, userEnsName, userAddress } = useGasStore()
 
   const navItems = [
-    { path: '/', label: 'Home', icon: Home },
-    { path: '/claim', label: 'Claim Gas', icon: Zap },
-    { path: '/donate', label: 'Donate', icon: Heart },
-    { path: '/dashboard', label: 'Dashboard', icon: BarChart3 },
-    { path: '/admin', label: 'Admin', icon: Settings },
+    { path: '/', label: 'Home' },
+    { path: '/claim', label: 'Claim Gas' },
+    { path: '/donate', label: 'Donate' },
+    // { path: '/dashboard', label: 'Dashboard' },
+    // { path: '/admin', label: 'Admin' },
   ]
 
   const formatAddress = (address: string) => {
@@ -42,11 +43,10 @@ const Navigation = () => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 hover:bg-muted/50 ${
+                className={`px-4 py-2 rounded-lg transition-all duration-300 hover:bg-muted/50 ${
                   isActive ? 'bg-primary/10 text-primary font-medium' : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
-                <item.icon className="w-4 h-4" />
                 <span>{item.label}</span>
               </Link>
             )
@@ -54,6 +54,7 @@ const Navigation = () => {
         </div>
 
         <div className="flex items-center space-x-4">
+          <ThemeToggle />
           {isConnected ? (
             <div className="flex items-center space-x-3">
               <div className="px-3 py-2 bg-muted rounded-lg">
@@ -85,14 +86,17 @@ const Navigation = () => {
             </span>
           </Link>
 
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsOpen(!isOpen)}
-            className="p-2"
-          >
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </Button>
+          <div className="flex items-center space-x-2">
+            <ThemeToggle />
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2"
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </Button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -109,13 +113,12 @@ const Navigation = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsOpen(false)}
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 ${
+                  className={`px-4 py-3 rounded-lg transition-all duration-300 ${
                     isActive 
                       ? 'bg-primary/10 text-primary font-medium' 
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
                   }`}
                 >
-                  <item.icon className="w-5 h-5" />
                   <span>{item.label}</span>
                 </Link>
               )
