@@ -69,9 +69,9 @@ const DashboardPage = () => {
           className="space-y-8"
         >
           {/* Header */}
-          <div className="text-center space-y-4">
+          <div className="text-left space-y-4">
            
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl">
               Real-time transparency into our mission of making Ethereum accessible to everyone
             </p>
           </div>

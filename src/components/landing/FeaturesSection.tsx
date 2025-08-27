@@ -40,7 +40,7 @@ const FeaturesSection = () => {
           className="text-center space-y-4 mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-display font-bold">
-            How <span className="bg-gradient-primary bg-clip-text text-transparent">Gas4All</span> Works
+            How <span className="bg-gradient-primary bg-clip-text text-transparent">Gas Aid</span> Works
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Breaking down barriers to Web3 adoption through sponsored gas fees and seamless onboarding

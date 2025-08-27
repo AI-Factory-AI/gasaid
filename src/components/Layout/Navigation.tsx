@@ -15,8 +15,8 @@ const Navigation = () => {
     { path: '/', label: 'Home' },
     { path: '/claim', label: 'Claim Gas' },
     { path: '/donate', label: 'Donate' },
-    // { path: '/dashboard', label: 'Dashboard' },
-    // { path: '/admin', label: 'Admin' },
+    { path: '/dashboard', label: 'Explorer' },
+    { path: '/admin', label: 'Organisations' },
   ]
 
   const formatAddress = (address: string) => {
@@ -33,7 +33,7 @@ const Navigation = () => {
               <Zap className="w-5 h-5 text-white" />
             </div>
                       <span className="text-xl font-display font-bold bg-gradient-primary bg-clip-text text-transparent">
-            Gas4All
+            Gas Aid
           </span>
           </Link>
 
@@ -73,7 +73,7 @@ const Navigation = () => {
               <Zap className="w-4 h-4 text-white" />
             </div>
             <span className="text-lg font-display font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Gas4All
+              Gas Aid
             </span>
           </Link>
 

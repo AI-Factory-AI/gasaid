@@ -17,7 +17,7 @@ const CTASection = () => {
           </h2>
           <p className="text-xl text-white/90 max-w-2xl mx-auto">
             Whether you're a new user looking for free gas or an organization wanting to sponsor adoption, 
-            Gas4All makes Web3 accessible to everyone.
+            Gas Aid makes Web3 accessible to everyone.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link to="/claim">

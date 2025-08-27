@@ -254,7 +254,7 @@ const DonatePage = () => {
                         disabled={!donationAmount || donationStatus === 'processing'}
                         className="btn-ethereum w-full py-6 text-lg font-semibold"
                       >
-                        {donationStatus === 'processing' ? 'Processing Donation...' : 'Donate to Gas4All'}
+                        {donationStatus === 'processing' ? 'Processing Donation...' : 'Donate to Gas Aid'}
                       </Button>
                     </div>
                   )}
@@ -273,7 +273,7 @@ const DonatePage = () => {
                 </div>
                 
                 {/* Notification-style Transactions List */}
-                <div className="h-96 overflow-hidden">
+                <div className="h-[32rem] overflow-hidden">
                   <div className="animate-scroll-up">
                     {/* First set of donors */}
                     {donors.slice(0, 8).map((donor, index) => {

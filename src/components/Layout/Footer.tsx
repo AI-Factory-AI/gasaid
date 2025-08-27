@@ -13,7 +13,7 @@ const Footer = () => {
                 <span className="text-white font-bold text-sm">G</span>
               </div>
               <span className="text-xl font-display font-bold bg-gradient-primary bg-clip-text text-transparent">
-                Gas4All
+                Gas Aid
               </span>
             </div>
             <p className="text-sm text-muted-foreground max-w-xs">
@@ -98,7 +98,7 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="border-t border-border/50 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
-            © 2024 Gas4All. All rights reserved.
+            © 2024 Gas Aid. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">

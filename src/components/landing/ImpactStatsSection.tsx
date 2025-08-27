@@ -21,7 +21,7 @@ const ImpactStatsSection = () => {
             Making Real <span className="bg-gradient-primary bg-clip-text text-transparent">Impact</span>
           </h2>
           <p className="text-xl text-muted-foreground">
-            See how Gas4All is transforming Web3 onboarding
+            See how Gas Aid is transforming Web3 onboarding
           </p>
         </motion.div>
 
