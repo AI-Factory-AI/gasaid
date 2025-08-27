@@ -58,7 +58,6 @@ const Navigation = () => {
         </div>
 
         <div className="flex items-center space-x-4">
-          <ThemeToggle />
           <Button variant="outline" size="sm">
             Connect Wallet
           </Button>
@@ -78,7 +77,6 @@ const Navigation = () => {
           </Link>
 
           <div className="flex items-center space-x-2">
-            <ThemeToggle />
             <Button
               variant="ghost"
               size="sm"

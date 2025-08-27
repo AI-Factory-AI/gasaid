@@ -119,41 +119,34 @@ const HeroSection = () => {
                 </p>
               </div>
               
-              <div className="space-y-6">
-                {/* Input Fields */}
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <label className="text-white/70 text-sm font-medium">You pay</label>
-                    <div className="flex items-center bg-muted/30 rounded-lg p-3">
-                      <input 
-                        type="text" 
-                        value="0.05" 
-                        readOnly
-                        className="bg-transparent text-white text-lg font-semibold flex-1 outline-none"
-                      />
-                      <div className="text-white/70 text-sm ml-2">ETH</div>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <label className="text-white/70 text-sm font-medium">You get</label>
-                    <div className="flex items-center bg-muted/30 rounded-lg p-3">
-                      <input 
-                        type="text" 
-                        value="0.05" 
-                        readOnly
-                        className="bg-transparent text-white text-lg font-semibold flex-1 outline-none"
-                      />
-                      <div className="text-white/70 text-sm ml-2">Gas Fee</div>
-                    </div>
-                  </div>
-                </div>
+                             <div className="space-y-6">
+                 {/* Gas Fee Display */}
+                 <div className="space-y-4">
+                   <div className="space-y-2">
+                     <label className="text-white/70 text-sm font-medium">Market Gas Fee</label>
+                     <div className="flex items-center bg-muted/30 rounded-lg p-3">
+                       <input 
+                         type="text" 
+                         value="0.002" 
+                         readOnly
+                         className="bg-transparent text-white text-lg font-semibold flex-1 outline-none"
+                       />
+                       <div className="text-white/70 text-sm ml-2">ETH</div>
+                     </div>
+                   </div>
+                   
+                   <div className="text-center bg-green-500/20 border border-green-500/30 rounded-lg p-3">
+                     <p className="text-green-400 font-semibold text-sm">100% FREE</p>
+                     <p className="text-green-300 text-xs">No payment required</p>
+                   </div>
+                 </div>
                 
-                {/* Timer */}
+                {/* Network Status */}
                 <div className="text-center">
-                  <p className="text-white/50 text-xs">
-                    Gas fee will be recalculated in <span className="text-white font-medium">24:32</span>
-                  </p>
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                    <p className="text-white/70 text-xs">Ethereum Mainnet</p>
+                  </div>
                 </div>
                 
                 {/* Terms */}
