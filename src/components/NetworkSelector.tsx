@@ -95,9 +95,6 @@ export const NetworkSelector = ({
             <span className="text-lg">{selectedNetwork.logo}</span>
             <div className="text-left">
               <div className="font-medium text-sm">{selectedNetwork.name}</div>
-              <div className="text-xs text-muted-foreground">
-                {selectedNetwork.gasToken}
-              </div>
             </div>
           </div>
           <ChevronDown className="h-4 w-4 text-muted-foreground ml-2" />

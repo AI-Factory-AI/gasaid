@@ -80,22 +80,7 @@ const ClaimPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center space-y-8"
           >
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-primary bg-clip-text text-transparent">
-                Claim Your Sponsored Gas
-              </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Connect your wallet to claim sponsored gas fees and get your free ENS subdomain
-              </p>
-            </div>
-
             <div className="bg-background border border-border/50 rounded-lg p-6 max-w-md mx-auto">
-              <div className="text-center mb-4">
-                <h2 className="text-lg font-semibold text-foreground">Connect Your Wallet</h2>
-                <p className="text-sm text-muted-foreground">
-                  Get started by connecting your Ethereum wallet to claim sponsored gas
-                </p>
-              </div>
               <Button 
                 onClick={handleConnect}
                 className="btn-ethereum w-full py-6 text-lg font-semibold"
@@ -118,30 +103,22 @@ const ClaimPage = () => {
           className="space-y-8"
         >
           {/* Header */}
-          {/* <div className="text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Claim Your Gas
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Get sponsored gas fees and your ENS subdomain
+          <div className="mb-6">
+            <h2 className="text-2xl font-semibold text-foreground">Claim Your Sponsored Gas</h2>
+            <p className="text-muted-foreground">
+              Get sponsored gas fees and your free ENS subdomain
             </p>
-          </div> */}
+          </div>
 
           {/* Side-by-side Layout */}
           <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto">
             {/* Left Side - Main Claim Card */}
             <div className="flex-1">
               <div className="bg-background border border-border/50 rounded-lg p-6">
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl font-semibold text-foreground">Claim Your Sponsored Gas</h2>
-                  <p className="text-muted-foreground">
-                    Get sponsored gas fees and your free ENS subdomain
-                  </p>
-                </div>
                 <div className="space-y-6">
                   {/* Network Selection */}
-                  <div className="space-y-4 mb-4">
-                    <label className="text-sm font-medium text-muted-foreground">Select Network</label>
+                  <div className="space-y-2">
+                    <div className="text-xs font-medium text-muted-foreground mb-1">Select Network</div>
                     <NetworkSelector
                       selectedNetwork={selectedNetwork}
                       onNetworkChange={setSelectedNetwork}

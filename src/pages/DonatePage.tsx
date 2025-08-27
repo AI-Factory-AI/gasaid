@@ -100,21 +100,23 @@ const DonatePage = () => {
             </p>
           </div> */}
 
+          <div className="mb-6">
+            <h2 className="text-2xl font-semibold text-foreground">Sponsor Gas Fees</h2>
+            <p className="text-muted-foreground">
+              Help onboard new users to Ethereum by sponsoring their gas fees
+            </p>
+          </div>
+
           {/* Main Content - Side by Side Layout */}
           <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto">
             {/* Left Side - Main Donation Card */}
             <div className="flex-1">
               <div className="bg-background border border-border/50 rounded-lg p-6">
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl font-semibold text-foreground">Sponsor Gas Fees</h2>
-                  <p className="text-muted-foreground">
-                    Help onboard new users to Ethereum by sponsoring their gas fees
-                  </p>
-                </div>
+
                 <div className="space-y-6">
                   {/* Network Selection */}
-                  <div className="space-y-20  mb-4">
-                    <label className="text-sm font-medium text-muted-foreground">Select Network</label>
+                  <div className="space-y-2">
+                    <div className="text-xs font-medium text-muted-foreground mb-1">Select Network</div>
                     <NetworkSelector
                       selectedNetwork={selectedNetwork}
                       onNetworkChange={setSelectedNetwork}

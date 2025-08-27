@@ -75,47 +75,7 @@ const AdminPage = () => {
     return 'Just now'
   }
 
-  if (!isConnected || !isAdmin) {
-    return (
-      <div className="min-h-screen pt-20 px-4">
-        <div className="max-w-2xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center space-y-8"
-          >
-            <div className="space-y-4">
-              <div className="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto text-white text-4xl font-bold">
-                A
-              </div>
-              <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-primary bg-clip-text text-transparent">
-                Admin Access Required
-              </h1>
-              <p className="text-xl text-muted-foreground">
-                {!isConnected 
-                  ? 'Connect your wallet to access the admin panel'
-                  : 'This page is restricted to Gas4All administrators only'
-                }
-              </p>
-            </div>
 
-            {!isConnected && (
-              <Button 
-                onClick={() => {
-                  useGasStore.getState().setConnected(true)
-                  useGasStore.getState().setUserAddress('0x742d35Cc6635C0532925a3b8C17C5f54aa8900F2')
-                  setIsAdmin(true)
-                }}
-                className="btn-ethereum"
-              >
-                Connect Admin Wallet
-              </Button>
-            )}
-          </motion.div>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="min-h-screen pt-20 px-4">
@@ -125,15 +85,30 @@ const AdminPage = () => {
           animate={{ opacity: 1, y: 0 }}
           className="space-y-8"
         >
-          {/* Header */}
-          <div className="text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-display font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Admin Panel
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Manage Gas4All operations and user onboarding
-            </p>
-          </div>
+          {/* Connection Status */}
+          {!isConnected && (
+            <div className="bg-muted/50 border border-border/50 rounded-lg p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-3 h-3 bg-warning rounded-full"></div>
+                  <span className="text-sm text-muted-foreground">
+                    Connect your wallet to perform admin operations
+                  </span>
+                </div>
+                <Button 
+                  onClick={() => {
+                    useGasStore.getState().setConnected(true)
+                    useGasStore.getState().setUserAddress('0x742d35Cc6635C0532925a3b8C17C5f54aa8900F2')
+                    setIsAdmin(true)
+                  }}
+                  size="sm"
+                  className="btn-ethereum"
+                >
+                  Connect Wallet
+                </Button>
+              </div>
+            </div>
+          )}
 
           {/* Quick Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">

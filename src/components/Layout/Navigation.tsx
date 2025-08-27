@@ -59,18 +59,9 @@ const Navigation = () => {
 
         <div className="flex items-center space-x-4">
           <ThemeToggle />
-          {isConnected && (
-            <div className="flex items-center space-x-3">
-              <div className="px-3 py-2 bg-muted rounded-lg">
-                <span className="text-sm font-medium">
-                  {userEnsName || (userAddress && formatAddress(userAddress))}
-                </span>
-              </div>
-              <Button variant="outline" size="sm">
-                Disconnect
-              </Button>
-            </div>
-          )}
+          <Button variant="outline" size="sm">
+            Connect Wallet
+          </Button>
         </div>
       </nav>
 
@@ -124,20 +115,11 @@ const Navigation = () => {
               )
             })}
             
-            {isConnected && (
-              <div className="pt-4 border-t border-border/50">
-                <div className="space-y-2">
-                  <div className="px-4 py-2 bg-muted rounded-lg">
-                    <span className="text-sm font-medium">
-                      {userEnsName || (userAddress && formatAddress(userAddress))}
-                    </span>
-                  </div>
-                  <Button variant="outline" size="sm" className="w-full">
-                    Disconnect
-                  </Button>
-                </div>
-              </div>
-            )}
+            <div className="pt-4 border-t border-border/50">
+              <Button variant="outline" size="sm" className="w-full">
+                Connect Wallet
+              </Button>
+            </div>
           </div>
         </motion.div>
       </nav>
